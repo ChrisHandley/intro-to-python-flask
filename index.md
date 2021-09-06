@@ -8,44 +8,40 @@ The best way to learn how to program is to do something useful,
 so this introduction to Python is built around a common scientific task:
 **data analysis**.
 
-### Arthritis Inflammation
-We are studying **inflammation in patients** who have been given a new treatment for arthritis.
+### Molecular Properties
+We are studying **molecular properities** for similar molecules to find correlations and
+make predictions about reactions based upon their properties.
 
-There are 60 patients, who had their inflammation levels recorded for 40 days.
-We want to analyze these recordings to study the effect of the new arthritis treatment.
+There are 343 molecules, each with 17 properties of interest 
+and a further value which is a measure of the preference of the reaction.
 
-To see how the treatment is affecting the patients in general, we would like to:
+To see how these properties are correlated we will;
 
-1. Calculate the average inflammation per day across all patients.
-2. Plot the result to discuss and share with colleagues.
-
-![3-step flowchart shows inflammation data records for patients moving to the Analysis step
-where a heat map of provided data is generated moving to the Conclusion step that asks the
-question, How does the medication affect patients?](
-fig/lesson-overview.svg "Lesson Overview")
+1. Calculate the average property for each across the set. 
+2. Plot the correlation between the properties.
 
 
 ### Data Format
 The data sets are stored in
 [comma-separated values]({{ page.root }}/reference.html#comma-separated-values) (CSV) format:
 
-- each row holds information for a single patient,
-- columns represent successive days.
+- each row holds information for a molecule,
+- columns represent a property.
 
 The first three rows of our first file look like this:
 ~~~
-0,0,1,3,1,2,4,7,8,3,3,3,10,5,7,4,7,7,12,18,6,13,11,11,7,7,4,6,8,8,4,4,5,7,3,4,2,3,0,0
-0,1,2,1,2,1,3,2,2,6,10,11,5,9,4,4,7,16,8,6,18,4,12,5,12,7,11,5,11,3,3,5,4,4,5,5,1,1,0,1
-0,1,1,3,3,2,6,2,5,9,5,7,4,5,4,15,5,11,9,10,19,14,12,17,7,12,11,7,4,2,10,5,4,2,2,3,2,2,1,1
+,%top,ER1,ER2,ER3,ER4,ER5,ER6,ER7,EZ,LMW,LVR1,LVR1+4,LVR1+4/3+6,LVR2,LVR3,LVR3+6,LVR4,LVR5,LVR6,LVR7,LVWhole,RS,Rh source,SStoutR1,SStoutR2,SStoutR3,SStoutR4,Type,VB,boron reagent,equivs boron reagent,ligand,mol% Rh,mol% ligand,solvent,substrate,temp,time,yield
+0,6,-0.09,0,0,-0.09,0,0,0,0,272.1565006,94.18429025,188.3685805,188.3685805,0,0,0,94.18429025,0,0,20.25598522,279.4546413,1,[Rh(C2H4)2Cl]2,22.51198396,21.5742147,0,0,Lam,348.0319373,B1(C2=CC=CC=C2)OB(C3=CC=CC=C3)OB(C4=CC=CC=C4)O1,2,L3.1,1.5,3,dioxane,O=C1C=CCC1,50,1,88
+1,2.333333333,-0.09,0,0,-0.09,0,0,0,0,272.1565006,94.18429025,188.3685805,188.3685805,0,0,0,94.18429025,0,0,20.25598522,279.4546413,1,[Rh(C2H4)2Cl]2,22.51198396,19.43509996,0,0,Lam,134.6239983,OB(O)C1=CC=CC=C1,2,L3.1,1.5,3,dioxane,O=C1C=CCCC1,30,1,94
 ~~~
 {: .source}
-Each number represents the number of inflammation bouts that a particular patient experienced on a
-given day.
+The first row are the headers of our data, the labels.
 
-For example, value "6" at row 3 column 7 of the data set above means that the third
-patient was experiencing inflammation six times on the seventh day of the clinical study.
+The subsequent rows represent the values for each entry for each of those lables.
 
-In order to analyze this data and report to our colleagues, we'll have to learn a little bit
+For example, for entry 1, the id of this entry is 0 - the first value of the row, and the %top is 6.
+
+In order to analyze this data, do some machine learning, and report to our colleagues, we'll have to learn a little bit
 about programming.
 
 > ## Prerequisites
