@@ -1,10 +1,6 @@
 # Introduction to Machine Learning with Python
 
-[![GitHub release][shields_release]][swc_py_releases]
-[![Create a Slack Account with us][create_slack_svg]][slack_heroku_invite]
-[![Slack Status][slack_channel_status]][slack_channel_url]
-
-An introduction to Python for non-programmers using inflammation data.
+An introduction to Python for non-programmers using molecular properties
 
 ## About the Lesson
 
@@ -20,11 +16,10 @@ how it is better to automate analysis using functions instead of repeating analy
 steps manually.
 
 The rendered version of the lesson is available at:
-<https://swcarpentry.github.io/python-novice-inflammation/>.
+<https://chrishandley.github.io/intro-to-chemai/>.
 
-This lesson is also available in [R][R] and [MATLAB][MATLAB].
 
-## Episodes
+## Episodes QQ - We need to change this
 
 | # |  Episode | Time | Question(s) |
 |--:|:---------|:----:|:------------|
@@ -40,27 +35,6 @@ This lesson is also available in [R][R] and [MATLAB][MATLAB].
 |10 | [Defensive Programming][episode10] | 30 | How can I make my programs more reliable? |
 |11 | [Debugging][episode11] | 30 | How can I debug my program? |
 |12 | [Command-Line Programs][episode12] | 30 | How can I write Python programs that will work like Unix command-line tools? |
-
-
-## Contributing
-[![Travis Build Status][travis_svg]][travis_url]
-
-We welcome all contributions to improve the lesson!
-Maintainers will do their best to help you if you have any questions, concerns,
-or experience any difficulties along the way.
-
-We'd like to ask you to familiarize yourself with our [Contribution Guide](CONTRIBUTING.md)
-and have a look at the [more detailed guidelines][lesson-example] on proper formatting,
-ways to render the lesson locally, and even how to write new episodes!
-
-## Maintainers
-
-Lesson maintainers are [Trevor Bekolay][trevor_bekolay], [Maxim Belkin][maxim_belkin],
-[Anne Fouilloux][anne_fouilloux], [Lauren Ko][lauren_ko], [Valentina Staneva][valentina_staneva],
-and [creator][swc_history] of Software Carpentry: [Greg Wilson][greg_wilson].
-
-## Authors
-A list of contributors to the lesson can be found in [AUTHORS](AUTHORS).
 
 ## License
 Instructional material from this lesson is made available under the
