@@ -1,5 +1,5 @@
 ---
-title: Analyzing Patient Data
+title: Analyzing Molecular Data
 teaching: 40
 exercises: 20
 questions:
@@ -12,7 +12,7 @@ objectives:
 - "Perform operations on arrays of data."
 keypoints:
 - "Import a library into a program using `import libraryname`."
-- "Use the `numpy` library to work with arrays in Python."
+- "Use the `numpy` and `pandas` library to work with arrays in Python."
 - "The expression `array.shape` gives the shape of an array."
 - "Use `array[x, y]` to select a single element from a 2D array."
 - "Array indices start at 0, not 1."
@@ -51,18 +51,24 @@ need for each program.
 Once we've imported the library, we can ask the library to read our data file for us:
 
 ~~~
-numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+numpy.loadtxt(fname='combined-no-headers.csv', delimiter=',')
 ~~~
 {: .language-python}
 
 ~~~
-array([[ 0.,  0.,  1., ...,  3.,  0.,  0.],
-       [ 0.,  1.,  2., ...,  1.,  0.,  1.],
-       [ 0.,  1.,  1., ...,  2.,  1.,  1.],
-       ...,
-       [ 0.,  1.,  1., ...,  1.,  1.,  1.],
-       [ 0.,  0.,  0., ...,  0.,  2.,  0.],
-       [ 0.,  0.,  1., ...,  1.,  1.,  0.]])
+array([[ 0.00000000e+00  6.00000000e+00 -9.00000000e-02 ...  2.02559852e+01
+   2.79454641e+02  1.00000000e+00]
+ [ 1.00000000e+00  2.33333333e+00 -9.00000000e-02 ...  2.02559852e+01
+   2.79454641e+02  1.00000000e+00]
+ [ 2.00000000e+00  7.90000000e+01 -1.40000000e-01 ...  7.60741678e+01
+   2.23068184e+02  5.00000000e-01]
+ ...
+ [ 3.40000000e+02  2.00000000e+00  3.60000000e-01 ...  8.45799261e+01
+   3.94431707e+02  5.00000000e-01]
+ [ 3.41000000e+02  1.50000000e+01  3.60000000e-01 ...  8.45799261e+01
+   2.82386669e+02  5.00000000e-01]
+ [ 3.42000000e+02  3.00000000e-01  0.00000000e+00 ...  8.45799261e+01
+   2.43000629e+02  5.00000000e-01]])
 ~~~
 {: .output}
 
@@ -101,7 +107,7 @@ value to a variable, we can also assign an array of values to a variable using t
 Let's re-run `numpy.loadtxt` and save the returned data:
 
 ~~~
-data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+data = numpy.loadtxt(fname='combined-no-headers.csv', delimiter=',')
 ~~~
 {: .language-python}
 
@@ -115,13 +121,19 @@ print(data)
 {: .language-python}
 
 ~~~
-[[ 0.  0.  1. ...,  3.  0.  0.]
- [ 0.  1.  2. ...,  1.  0.  1.]
- [ 0.  1.  1. ...,  2.  1.  1.]
- ...,
- [ 0.  1.  1. ...,  1.  1.  1.]
- [ 0.  0.  0. ...,  0.  2.  0.]
- [ 0.  0.  1. ...,  1.  1.  0.]]
+[[ 0.00000000e+00  6.00000000e+00 -9.00000000e-02 ...  2.02559852e+01
+   2.79454641e+02  1.00000000e+00]
+ [ 1.00000000e+00  2.33333333e+00 -9.00000000e-02 ...  2.02559852e+01
+   2.79454641e+02  1.00000000e+00]
+ [ 2.00000000e+00  7.90000000e+01 -1.40000000e-01 ...  7.60741678e+01
+   2.23068184e+02  5.00000000e-01]
+ ...
+ [ 3.40000000e+02  2.00000000e+00  3.60000000e-01 ...  8.45799261e+01
+   3.94431707e+02  5.00000000e-01]
+ [ 3.41000000e+02  1.50000000e+01  3.60000000e-01 ...  8.45799261e+01
+   2.82386669e+02  5.00000000e-01]
+ [ 3.42000000e+02  3.00000000e-01  0.00000000e+00 ...  8.45799261e+01
+   2.43000629e+02  5.00000000e-01]]
 ~~~
 {: .output}
 
@@ -177,11 +189,11 @@ print(data.shape)
 {: .language-python}
 
 ~~~
-(60, 40)
+(343, 23)
 ~~~
 {: .output}
 
-The output tells us that the `data` array variable contains 60 rows and 40 columns. When we
+The output tells us that the `data` array variable contains 343 rows and 23 columns. When we
 created the variable `data` to store our arthritis data, we did not only create the array; we also
 created information about the array, called [members]({{ page.root }}/reference.html#member) or
 attributes. This extra information describes `data` in the same way an adjective describes a noun.
@@ -191,7 +203,7 @@ they have the same part-and-whole relationship.
 
 If we want to get a single number from the array, we must provide an
 [index]({{ page.root }}/reference.html#index) in square brackets after the variable name, just as we
-do in math when referring to an element of a matrix.  Our inflammation data has two dimensions, so
+do in math when referring to an element of a matrix.  Our molecular properties data has two dimensions, so
 we will need to use two indices to refer to one specific value:
 
 ~~~
@@ -205,16 +217,16 @@ first value in data: 0.0
 {: .output}
 
 ~~~
-print('middle value in data:', data[30, 20])
+print('middle value in data:', data[172, 11])
 ~~~
 {: .language-python}
 
 ~~~
-middle value in data: 13.0
+middle value in data: 94.18429025
 ~~~
 {: .output}
 
-The expression `data[30, 20]` accesses the element at row 30, column 20. While this expression may
+The expression `data[172, 11]` accesses the element at row 172, column 11. While this expression may
 not surprise you,
  `data[0, 0]` might.
 Programming languages like Fortran, MATLAB and R start counting at 1
@@ -254,8 +266,8 @@ in the bottom right hand corner.](../fig/python-zero-index.svg)
 An index like `[30, 20]` selects a single element of an array,
 but we can select whole sections as well.
 For example,
-we can select the first ten days (columns) of values
-for the first four patients (rows) like this:
+we can select the first properties (columns) of values
+for the first four molecules (rows) like this:
 
 ~~~
 print(data[0:4, 0:10])
@@ -263,10 +275,18 @@ print(data[0:4, 0:10])
 {: .language-python}
 
 ~~~
-[[ 0.  0.  1.  3.  1.  2.  4.  7.  8.  3.]
- [ 0.  1.  2.  1.  2.  1.  3.  2.  2.  6.]
- [ 0.  1.  1.  3.  3.  2.  6.  2.  5.  9.]
- [ 0.  0.  2.  0.  4.  2.  2.  1.  6.  7.]]
+[[ 0.00000000e+00  6.00000000e+00 -9.00000000e-02  0.00000000e+00
+   0.00000000e+00 -9.00000000e-02  0.00000000e+00  0.00000000e+00
+   0.00000000e+00  0.00000000e+00]
+ [ 1.00000000e+00  2.33333333e+00 -9.00000000e-02  0.00000000e+00
+   0.00000000e+00 -9.00000000e-02  0.00000000e+00  0.00000000e+00
+   0.00000000e+00  0.00000000e+00]
+ [ 2.00000000e+00  7.90000000e+01 -1.40000000e-01  0.00000000e+00
+   0.00000000e+00  0.00000000e+00 -1.70000000e-01  0.00000000e+00
+  -2.70000000e-01  0.00000000e+00]
+ [ 3.00000000e+00  9.75000000e+01  7.00000000e-02  0.00000000e+00
+   0.00000000e+00 -1.20000000e-01 -1.70000000e-01  0.00000000e+00
+  -2.70000000e-01  0.00000000e+00]]
 ~~~
 {: .output}
 
@@ -283,11 +303,16 @@ print(data[5:10, 0:10])
 {: .language-python}
 
 ~~~
-[[ 0.  0.  1.  2.  2.  4.  2.  1.  6.  4.]
- [ 0.  0.  2.  2.  4.  2.  2.  5.  5.  8.]
- [ 0.  0.  1.  2.  3.  1.  2.  3.  5.  3.]
- [ 0.  0.  0.  3.  1.  5.  6.  5.  5.  8.]
- [ 0.  1.  1.  2.  1.  3.  5.  3.  5.  8.]]
+[[ 5.000e+00  9.575e+01  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+  -1.700e-01  0.000e+00 -2.700e-01  0.000e+00]
+ [ 6.000e+00  9.650e+01 -1.600e-01  0.000e+00  0.000e+00 -1.000e-02
+  -1.700e-01  0.000e+00 -2.700e-01  0.000e+00]
+ [ 7.000e+00  9.400e+01 -9.000e-02  0.000e+00  0.000e+00 -1.000e-02
+  -1.700e-01  0.000e+00 -2.700e-01  0.000e+00]
+ [ 8.000e+00  1.250e+00  0.000e+00  0.000e+00  0.000e+00 -1.700e-01
+   0.000e+00  0.000e+00 -1.500e-01  0.000e+00]
+ [ 9.000e+00  2.250e+00 -9.000e-02  0.000e+00  0.000e+00 -9.000e-02
+   0.000e+00  0.000e+00  0.000e+00  1.000e+00]]
 ~~~
 {: .output}
 
@@ -297,7 +322,7 @@ axis, and if we don't include either (i.e., if we use ':' on its own), the slice
 everything:
 
 ~~~
-small = data[:3, 36:]
+small = data[:3, 18:]
 print('small is:')
 print(small)
 ~~~
@@ -306,9 +331,9 @@ The above example selects rows 0 through 2 and columns 36 through to the end of 
 
 ~~~
 small is:
-[[ 2.  3.  0.  0.]
- [ 1.  1.  0.  1.]
- [ 2.  2.  1.  1.]]
+[[  0.           0.          20.25598522 279.4546413    1.        ]
+ [  0.           0.          20.25598522 279.4546413    1.        ]
+ [ 21.5742147    0.          76.07416785 223.0681843    0.5       ]]
 ~~~
 {: .output}
 
@@ -318,13 +343,22 @@ NumPy has several useful functions that take an array as input to perform operat
 If we want to find the average inflammation for all patients on
 all days, for example, we can ask NumPy to compute `data`'s mean value:
 
+Let's first remove the first column, our data lables which have been interpreted as real numbers
+
+~~~
+data = np.delete(data, 0, 1)
+~~~
+{: .language-python}
+
+And now we can compute the mean
+
 ~~~
 print(numpy.mean(data))
 ~~~
 {: .language-python}
 
 ~~~
-6.14875
+53.72029602831553
 ~~~
 {: .output}
 
@@ -361,8 +395,8 @@ a convenient Python feature that will enable us to do this all in one line.
 ~~~
 maxval, minval, stdval = numpy.max(data), numpy.min(data), numpy.std(data)
 
-print('maximum inflammation:', maxval)
-print('minimum inflammation:', minval)
+print('maximum property:', maxval)
+print('minimum property:', minval)
 print('standard deviation:', stdval)
 ~~~
 {: .language-python}
@@ -371,9 +405,9 @@ Here we've assigned the return value from `numpy.max(data)` to the variable `max
 from `numpy.min(data)` to `minval`, and so on.
 
 ~~~
-maximum inflammation: 20.0
-minimum inflammation: 0.0
-standard deviation: 4.61383319712
+maximum property: 646.1013477
+minimum property: -0.27
+standard deviation: 98.0360663022302
 ~~~
 {: .output}
 
@@ -401,13 +435,13 @@ One way to do this is to create a new temporary array of the data we want,
 then ask it to do the calculation:
 
 ~~~
-patient_0 = data[0, :] # 0 on the first axis (rows), everything on the second (columns)
-print('maximum inflammation for patient 0:', numpy.max(patient_0))
+molecule_0 = data[0, :] # 0 on the first axis (rows), everything on the second (columns)
+print('maximum property for molecule 0:', numpy.max(patient_0))
 ~~~
 {: .language-python}
 
 ~~~
-maximum inflammation for patient 0: 18.0
+maximum property for molecule 0: 279.4546413
 ~~~
 {: .output}
 
