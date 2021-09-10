@@ -9,10 +9,10 @@ so this introduction to Python is built around a common scientific task:
 **data analysis**.
 
 ### Molecular Properties
-We are studying **molecular properities** for similar molecules to find correlations and
+We are studying **molecular features** for similar molecules to find correlations and
 make predictions about reactions based upon their properties.
 
-There are 343 molecules, each with 17 properties of interest 
+There are 343 molecules, each with 17 features of interest 
 and a further value which is a measure of the preference of the reaction.
 
 To see how these properties are correlated we will;
