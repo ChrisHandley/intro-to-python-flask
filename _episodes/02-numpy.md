@@ -667,7 +667,7 @@ which is the average of all features per molecule.
 > > ## Solution
 > > ~~~
 > > array([], shape=(0, 0), dtype=float64)
-> > array([], shape=(0, 40), dtype=float64)
+> > array([], shape=(0, 22), dtype=float64)
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -765,11 +765,10 @@ which is the average of all features per molecule.
 > {: .solution}
 {: .challenge}
 
-> ## Change In Inflammation
+> ## Change In Values
 >
-> The patient data is _longitudinal_ in the sense that each row represents a
-> series of observations relating to one individual.  This means that
-> the change in inflammation over time is a meaningful concept.
+> Let's presume for a moment that the data for each molecule is _logitudinal_ in nature.
+> So each value is part of a series over time. We might be interested in the change in that value over time.
 > Let's find out how to calculate changes in the data contained in an array
 > with NumPy.
 >
@@ -778,108 +777,36 @@ which is the average of all features per molecule.
 > each day across the first week of patient 3 from our inflammation dataset.
 >
 > ~~~
-> patient3_week1 = data[3, :7]
-> print(patient3_week1)
+> molecule3_first7features = data[3, :7]
+> print(molecule3_first7features)
 > ~~~
 > {: .language-python}
 >
 > ~~~
->  [0. 0. 2. 0. 4. 2. 2.]
+>  [79.   -0.14  0.    0.    0.   -0.17  0.  ]
 > ~~~
 > {: .output}
 >
-> Calling `numpy.diff(patient3_week1)` would do the following calculations
+> Calling `numpy.diff(molecule3_first7features)` would do the following calculations
 >
 > ~~~
-> [ 0 - 0, 2 - 0, 0 - 2, 4 - 0, 2 - 4, 2 - 2 ]
+> [-0.14 - 79, 0 - -0.14, 0 - 0, 0 - 0, -0.17 - 0, 0 - -0.17]
 > ~~~
 > {: .language-python}
 >
 > and return the 6 difference values in a new array.
 >
 > ~~~
-> numpy.diff(patient3_week1)
+> numpy.diff(molecule3_first7features)
 > ~~~
 > {: .language-python}
 >
 > ~~~
-> array([ 0.,  2., -2.,  4., -2.,  0.])
+> array([-79.14   0.14   0.     0.    -0.17   0.17])
 > ~~~
 > {: .output}
 >
 > Note that the array of differences is shorter by one element (length 6).
 >
-> When calling `numpy.diff` with a multi-dimensional array, an `axis` argument may
-> be passed to the function to specify which axis to process. When applying
-> `numpy.diff` to our 2D inflammation array `data`, which axis would we specify?
->
-> > ## Solution
-> > Since the row axis (0) is patients, it does not make sense to get the
-> > difference between two arbitrary patients. The column axis (1) is in
-> > days, so the difference is the change in inflammation -- a meaningful
-> > concept.
-> >
-> > ~~~
-> > numpy.diff(data, axis=1)
-> > ~~~
-> > {: .language-python}
-> {: .solution}
->
-> If the shape of an individual data file is `(60, 40)` (60 rows and 40
-> columns), what would the shape of the array be after you run the `diff()`
-> function and why?
->
-> > ## Solution
-> > The shape will be `(60, 39)` because there is one fewer difference between
-> > columns than there are columns in the data.
-> {: .solution}
->
-> How would you find the largest change in inflammation for each patient? Does
-> it matter if the change in inflammation is an increase or a decrease?
->
-> > ## Solution
-> > By using the `numpy.max()` function after you apply the `numpy.diff()`
-> > function, you will get the largest difference between days.
-> >
-> > ~~~
-> > numpy.max(numpy.diff(data, axis=1), axis=1)
-> > ~~~
-> > {: .language-python}
-> >
-> > ~~~
-> > array([  7.,  12.,  11.,  10.,  11.,  13.,  10.,   8.,  10.,  10.,   7.,
-> >          7.,  13.,   7.,  10.,  10.,   8.,  10.,   9.,  10.,  13.,   7.,
-> >         12.,   9.,  12.,  11.,  10.,  10.,   7.,  10.,  11.,  10.,   8.,
-> >         11.,  12.,  10.,   9.,  10.,  13.,  10.,   7.,   7.,  10.,  13.,
-> >         12.,   8.,   8.,  10.,  10.,   9.,   8.,  13.,  10.,   7.,  10.,
-> >          8.,  12.,  10.,   7.,  12.])
-> > ~~~
-> > {: .language-python}
-> >
-> > If inflammation values *decrease* along an axis, then the difference from
-> > one element to the next will be negative. If
-> > you are interested in the **magnitude** of the change and not the
-> > direction, the `numpy.absolute()` function will provide that.
-> >
-> > Notice the difference if you get the largest _absolute_ difference
-> > between readings.
-> >
-> > ~~~
-> > numpy.max(numpy.absolute(numpy.diff(data, axis=1)), axis=1)
-> > ~~~
-> > {: .language-python}
-> >
-> > ~~~
-> > array([ 12.,  14.,  11.,  13.,  11.,  13.,  10.,  12.,  10.,  10.,  10.,
-> >         12.,  13.,  10.,  11.,  10.,  12.,  13.,   9.,  10.,  13.,   9.,
-> >         12.,   9.,  12.,  11.,  10.,  13.,   9.,  13.,  11.,  11.,   8.,
-> >         11.,  12.,  13.,   9.,  10.,  13.,  11.,  11.,  13.,  11.,  13.,
-> >         13.,  10.,   9.,  10.,  10.,   9.,   9.,  13.,  10.,   9.,  10.,
-> >         11.,  13.,  10.,  10.,  12.])
-> > ~~~
-> > {: .language-python}
-> >
-> {: .solution}
-{: .challenge}
 
 {% include links.md %}
