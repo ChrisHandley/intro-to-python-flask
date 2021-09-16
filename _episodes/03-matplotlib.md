@@ -84,7 +84,8 @@ Here are our three plots side by side:
 import numpy
 import matplotlib.pyplot
 
-data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+data = numpy.loadtxt(fname='combined-no-headers.csv', delimiter=',')
+array = np.delete(array, 0, 1)
 
 fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
 
@@ -103,12 +104,12 @@ axes3.plot(numpy.min(data, axis=0))
 
 fig.tight_layout()
 
-matplotlib.pyplot.savefig('inflammation.png')
+matplotlib.pyplot.savefig('features.png')
 matplotlib.pyplot.show()
 ~~~
 {: .language-python}
 
-![Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period.](../fig/inflammation-01-group-plot.svg)
+![Three line graphs showing the average, maximum and minimum inflammation over a 40-day period.](../fig/features-group-plot.png)
 
 The [call]({{ page.root }}/reference.html#function-call) to `loadtxt` reads our data,
 and the rest of the program tells the plotting library
@@ -123,7 +124,7 @@ The call to `savefig` stores the plot as a graphics file. This can be
 a convenient way to store your plots for use in other documents, web
 pages etc. The graphics format is automatically determined by
 Matplotlib from the file name ending we specify; here PNG from
-'inflammation.png'. Matplotlib supports many different graphics
+'features.png'. Matplotlib supports many different graphics
 formats, including SVG, PDF, and JPEG.
 
 > ## Importing libraries with shortcuts
