@@ -470,7 +470,7 @@ operation across an axis:
 
 ![Per-patient maximum inflammation is computed row-wise across all columns using
 numpy.max(data, axis=1). Per-day average inflammation is computed column-wise across all rows using
-numpy.mean(data, axis=0).](../fig/python-operations-across-axes.png)
+numpy.mean(data, axis=0).](../fig/operation-across-axis.png)
 
 To support this functionality,
 most array functions allow us to specify the axis we want to work on.
