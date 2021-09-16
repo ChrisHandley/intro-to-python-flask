@@ -109,7 +109,7 @@ matplotlib.pyplot.show()
 ~~~
 {: .language-python}
 
-![Three line graphs showing the average, maximum and minimum inflammation over a 40-day period.](../fig/features-group-plot.png)
+![Three line graphs showing the average, maximum and minimum for each feature over all molecules.](../fig/group-features.png)
 
 The [call]({{ page.root }}/reference.html#function-call) to `loadtxt` reads our data,
 and the rest of the program tells the plotting library
