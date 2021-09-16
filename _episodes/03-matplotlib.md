@@ -22,31 +22,32 @@ import the `pyplot` module from `matplotlib` and use two of its functions to cre
 
 ~~~
 import matplotlib.pyplot
-image = matplotlib.pyplot.imshow(data)
+image = matplotlib.pyplot.imshow(data[:40,:])
 matplotlib.pyplot.show()
 ~~~
 {: .language-python}
 
 ![Heat map representing the `data` variable. Each cell is colored by value along a color gradient
-from blue to yellow.](../fig/inflammation-01-imshow.svg)
+from blue to yellow.](../fig/heatmap-features.png)
 
 Blue pixels in this heat map represent low values, while yellow pixels represent high values.  As we
-can see, inflammation rises and falls over a 40-day period.  Let's take a look at the average
-inflammation over time:
+can see, the scale of these features varies dramatically, and within a particular feature there is variation
+between molecules.
 
 ~~~
-ave_inflammation = numpy.mean(data, axis=0)
-ave_plot = matplotlib.pyplot.plot(ave_inflammation)
+ave_feature_value = numpy.mean(data, axis=0)
+ave_plot = matplotlib.pyplot.plot(ave_feature_value)
 matplotlib.pyplot.show()
 ~~~
 {: .language-python}
 
-![A line graph showing the average inflammation across all patients over a 40-day period.](../fig/inflammation-01-average.svg)
+![A line graph showing the average value for each molecule feature.](../fig/average_feature.png)
 
-Here, we have put the average inflammation per day across all patients in the variable
-`ave_inflammation`, then asked `matplotlib.pyplot` to create and display a line graph of those
-values.  The result is a roughly linear rise and fall, which is suspicious: we might instead expect
-a sharper rise and slower fall.  Let's have a look at two other statistics:
+Here, we have put the of each feature across all molecules in the variable
+`ave_feature_value`, then asked `matplotlib.pyplot` to create and display a line graph of those
+values.
+
+Let's produce the same for the maximum.
 
 ~~~
 max_plot = matplotlib.pyplot.plot(numpy.max(data, axis=0))
@@ -54,20 +55,17 @@ matplotlib.pyplot.show()
 ~~~
 {: .language-python}
 
-![A line graph showing the maximum inflammation across all patients over a 40-day period.](../fig/inflammation-01-maximum.svg)
+![A line graph showing the maximum for each feature over all molecules](../fig/max_feature.png)
 
 ~~~
-min_plot = matplotlib.pyplot.plot(numpy.min(data, axis=0))
+min_plot = matplotlib.pyplot.plot(np.min(data, axis=0))
 matplotlib.pyplot.show()
 ~~~
 {: .language-python}
 
-![A line graph showing the minimum inflammation across all patients over a 40-day period.](../fig/inflammation-01-minimum.svg)
+![A line graph showing the minimum for each features over all molecules](../fig/min_feature.png)
 
-The maximum value rises and falls smoothly, while the minimum seems to be a step function.  Neither
-trend seems particularly likely, so either there's a mistake in our calculations or something is
-wrong with our data.  This insight would have been difficult to reach by examining the numbers
-themselves without visualization tools.
+
 
 ### Grouping plots
 You can group similar plots in a single figure using subplots.
