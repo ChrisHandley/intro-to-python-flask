@@ -206,7 +206,7 @@ formats, including SVG, PDF, and JPEG.
 > > import numpy
 > > import matplotlib.pyplot
 > >
-> > data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+> > data = numpy.loadtxt(fname='combined-no-headers.csv', delimiter=',')
 > >
 > > fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
 > >
@@ -228,8 +228,7 @@ formats, including SVG, PDF, and JPEG.
 > > matplotlib.pyplot.show()
 > > ~~~
 > > {: .language-python}
-> ![Three line graphs, with step lines connecting the points, showing the daily average, maximum
- and minimum inflammation over a 40-day period.](../fig/inflammation-01-line-styles.svg)
+> ![Three line graphs, with step lines.](../fig/features_stepped.png)
 > {: .solution}
 {: .challenge}
 
@@ -257,7 +256,8 @@ formats, including SVG, PDF, and JPEG.
 > > import numpy
 > > import matplotlib.pyplot
 > >
-> > data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+> > data = numpy.loadtxt(fname='combined-no-headers.csv', delimiter=',')
+> > array = np.delete(array, 0, 1)
 > >
 > > # change figsize (swap width and height)
 > > fig = matplotlib.pyplot.figure(figsize=(3.0, 10.0))
