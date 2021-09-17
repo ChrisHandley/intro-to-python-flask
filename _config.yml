@@ -99,3 +99,8 @@ exclude:
 
 # Turn on built-in syntax highlighting.
 highlighter: rouge
+
+episode_order:
+      - 01-intro
+      - 02-numpy
+      - 03-matplotlib
