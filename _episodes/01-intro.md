@@ -132,6 +132,75 @@ The decorator to our `respond` function has the methods attribute of POST. This 
 
 Request takes the payload, a json, and only a json, and processes it to content where is is held as a dictionary.
 
-
+> ## Better File Structure?
+>
+> How do we improve the file structure?
+> Can we improve the way we import our routes?
+>
+> > ## Solution 
+> > ~~~
+> > microapp/
+> > ├── app
+> > │   ├── __init__.py
+> > │   └── routes.py
+> > └── app.py
+> > ~~~
+> > {: .terminal}
+> > 
+> > The routes are split out from the main application
+> > as it makes it much easier to then have the routes for each endpoint
+> > in their own folder
+> >
+> > ~~~
+> > from app import app
+> > 
+> > if __name__ == "__main__":
+> >     app.run(debug=False)
+> > ~~~
+> > {: .language-python}
+> >
+> > A bit confusing, but what is happening is from the app folder the app instance is being imported.
+> >
+> > ~~~
+> > from flask import Flask
+> > 
+> > app = Flask(__name__)
+> > 
+> > from app import routes
+> > ~~~
+> > {: .language-python}
+> > 
+> > The `__init__.py` file informs python the the files in the folder can be imported as modules
+> > and can be left empty. If it is not, then it is preparing other things, like our app, that can then
+> > be imported elsewhere.
+> >
+> > ~~~
+> > from app import app
+> > from flask import request
+> > 
+> > @app.route("/")
+> > def hello() -> str:
+> >     return "Hello World"
+> > 
+> > @app.route("/test", methods=['POST'])
+> > def respond():
+> >     content = request.json
+> >     body = {
+> >         "message": "Go Serverless v1.0! Your function executed successfully!",
+> >         "input": content
+> >     }
+> > 
+> >     response = {
+> >         "statusCode": 200,
+> >         "body": content['value']
+> >     }
+> >     return response
+> > ~~~
+> > {: .language-python}
+> > 
+> > Here we again import the app instance from the app folder.
+> > Then we define some of our routes. Routes could be defined elsewhere and imported in a similar manner
+> > but then you must still import app from from app for the decorator to work
+> {: .solution}
 
 {% include links.md %}
