@@ -1,22 +1,14 @@
-# Introduction to Machine Learning with Python
+# Introduction to Pyhton Flask
 
-An introduction to Python for non-programmers using molecular properties
+An introduction to Flask for Python
 
 ## About the Lesson
 
-This lesson teaches novice programmers to write modular code to perform data analysis
-using Python. The emphasis, however, is on teaching language-agnostic principles of
-programming such as automation with loops and encapsulation with functions,
-see [Best Practices for Scientific Computing][best-practices] and
-[Good enough practices in scientific computing][good-practices] to learn more.
+This lesson teaches Python programmers how to use Flask to build webapps.
 
-The example used in this lesson analyses a set of 12 files with simulated inflammation
-data collected from a trial for a new treatment for arthritis. Learners are shown
-how it is better to automate analysis using functions instead of repeating analysis
-steps manually.
 
 The rendered version of the lesson is available at:
-<https://chrishandley.github.io/intro-to-chemai/>.
+<https://chrishandley.github.io/intro-to-python-flask/>.
 
 
 ## Episodes QQ - We need to change this
