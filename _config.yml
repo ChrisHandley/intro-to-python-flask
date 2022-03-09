@@ -102,5 +102,5 @@ highlighter: rouge
 
 episode_order:
       - 01-intro
-      - 02-numpy
+      - 02-template
       - 03-matplotlib
