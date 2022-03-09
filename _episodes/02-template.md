@@ -200,6 +200,7 @@ Boostrap prepares the app with bootstrap templates that can be used for building
 We also update the app config to use a secret key for some added security for the user session.
 
 ~~~
+{% raw %}
 {% extends 'bootstrap/base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
@@ -235,6 +236,7 @@ Best Movie Actors
 </div>
 
 {% endblock %}
+{% endraw %}
 ~~~
 {: .language-html}
 
@@ -259,6 +261,7 @@ def actor(id):
 In the actor route, using the id, we obtain the id, name, and url for the photo.
 
 ~~~
+{% raw %}
 {% extends 'bootstrap/base.html' %}
 
 {% block styles %}
@@ -308,6 +311,7 @@ ae cursus nibh sapien sit amet enim. Mauris imperdiet hendrerit risus, quis cong
   </div>
 </div>
 {% endblock %}
+{% raw %}
 ~~~
 {: .language-html}
 
