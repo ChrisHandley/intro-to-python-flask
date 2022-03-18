@@ -269,6 +269,7 @@ The `login_user` function then takes the user information and the remember_me ar
 The `login.html` template is, in the minimal form really simple.
 
 ~~~
+{% raw %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -294,6 +295,7 @@ The `login.html` template is, in the minimal form really simple.
     </form>
     <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
 {% endblock %}
+{% endraw %}
 ~~~
 {: .language-html}
 
@@ -302,6 +304,7 @@ Once more the Jinja2 package allows us to pass from python Flask app to the html
 Similarly the `register.html` template is equally simple.
 
 ~~~
+{% raw %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -339,6 +342,7 @@ Similarly the `register.html` template is equally simple.
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
+{% endraw %}
 ~~~
 
 
