@@ -260,9 +260,11 @@ An instance of the database `User` entry is created and passed to it is the form
 
 Then the user instance is added to the database in the User table, using `db.session.add(user)` and once all additions are made, the session is committed, and a redirection to the login page can occur.
 
-The login route is similar, with a form, this time the `LoginForm` passed to form and used as part of the rendering of the `login.html` page. Redirection occurs first if the user is already authenticated for the session. In the case of login being required the form is inspected to see if it has been submitted and data is extracted from the fields. `User.query.filter_by(username=form.username.data).first()` searches the database to retrieve the User entry instance that is compared to to confirm passwords.
+The login route is similar, with a form, this time the `LoginForm` passed to form and used as part of the rendering of the `login.html` page. Redirection occurs first if the user is already authenticated for the session. In the case of login being required the form is inspected to see if it has been submitted and data is extracted from the fields. `User.query.filter_by(username=form.username.data).first()` searches the database to retrieve the User entry instance that is compared to to confirm passwords. The use of the `next` argument is used, because this has content if we try to access pages that require login, and so once we complete login, the redirect is to this page we were trying to login into.
 
 The `login_user` function then takes the user information and the remember_me argument, to inform the session that the user is logged in.
+
+Finally, we have made use of a new decorator on our index route. `@login_required` checks to see if the current session is logged in, and if so this route can be accessed.
 
 ## Templates
 
@@ -346,47 +348,6 @@ Similarly the `register.html` template is equally simple.
 ~~~
 
 
-> ## Plot Scaling
->
-> Why do all of our plots stop just short of the upper end of our graph?
->
-> > ## Solution
-> > Because matplotlib normally sets x and y axes limits to the min and max of our data
-> > (depending on data range)
-> {: .solution}
->
-> If we want to change this, we can use the `set_ylim(min, max)` method of each 'axes',
-> for example:
->
-> ~~~
-> axes3.set_ylim(0,6)
-> ~~~
-> {: .language-python}
->
-> Update your plotting code to automatically set a more appropriate scale.
-> (Hint: you can make use of the `max` and `min` methods to help.)
->
-> > ## Solution
-> > ~~~
-> > # One method
-> > axes3.set_ylabel('min')
-> > axes3.plot(numpy.min(data, axis=0))
-> > axes3.set_ylim(0,6)
-> > ~~~
-> > {: .language-python}
-> {: .solution}
->
-> > ## Solution
-> > ~~~
-> > # A more automated approach
-> > min_data = numpy.min(data, axis=0)
-> > axes3.set_ylabel('min')
-> > axes3.plot(min_data)
-> > axes3.set_ylim(numpy.min(min_data), numpy.max(min_data) * 1.1)
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
 
 
 
