@@ -15,6 +15,8 @@ keypoints:
 Sooner or later we want an app that can manage user sessions and logging in and out so that users
 can access their particular data and personalised preferences.
 
+Install flask-sqlalchemy and flask-migrate
+
 Let's return to our `__init__.py` and load in what we require.
 
 ~~~
@@ -349,7 +351,45 @@ Similarly the `register.html` template is equally simple.
 
 
 
-
+> ## Blog Posts
+>
+>
+> What would the database look like to accomodate blog posts from users?
+> Criteria:
+> - The post needs to contain a body of just 140 characters length
+> - We need to capture the time stamp of when the blog post was created
+> - We need to capture the user who creates the blog post
+>
+> > ## Solution
+> > 
+> > ~~~
+> > class Post(db.Model):
+> >     id = db.Column(db.Integer, primary_key=True)
+> >     body = db.Column(db.String(140))
+> >     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+> >     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+> > 
+> >    def __repr__(self):
+> >        return '<Post {}>'.format(self.body)
+> >
+> > ~~~
+> > {: .language-python}
+> > {: .solution}
+>
+> How do we update the User table to accomodate a 1 to many relationship
+> between user and the posts they make?
+>
+> > ~~~
+> > class User(db.Model):
+> > ...
+> > posts = db.relationship('Post', backref='author', lazy='dynamic')
+> > ...
+> > ~~~
+> > {: .language-python}
+> > post.author will return the user object related to that post.
+> > {: .solution}
+> 
+> 
 
 
 {% include links.md %}

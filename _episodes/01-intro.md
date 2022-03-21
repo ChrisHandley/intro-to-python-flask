@@ -62,18 +62,19 @@ The line checking is __name__ is identical to "__main__" is checking the variabl
 To run the Flask app we can either;
 
 ~~~
-$ python3 app.py
+$ python3 microblog.py
 ~~~
 {: .terminal}
 
 or
 
 ~~~
+$ export FLASK_APP=microblog.py
 $ flask run
 ~~~
 {: .terminal}
 
-The latter is performed in the directory and is looking for app.py. Flask can be run with other keywords other than run.
+The latter is performed in the directory and is looking for microblog.py. Flask can be run with other keywords other than run.
 
 Doing so produces in the terminal the following
 
@@ -143,7 +144,7 @@ Request takes the payload, a json, and only a json, and processes it to content 
 > > ├── app
 > > │   ├── __init__.py
 > > │   └── routes.py
-> > └── app.py
+> > └── microblog.py
 > > ~~~
 > > {: .terminal}
 > > 
