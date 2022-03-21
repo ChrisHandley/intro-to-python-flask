@@ -56,6 +56,7 @@ The above is now our `routes.py` file in our app directory. See how the index fu
 render_template function, and we pass to it the name of the template, and pass to it some arguments.
 
 ~~~
+{% raw %}
 <!doctype html>
 <html>
     <head>
@@ -65,6 +66,7 @@ render_template function, and we pass to it the name of the template, and pass t
         <h1>Hello, {{ user.username }}!</h1>
     </body>
 </html>
+{% endraw %}
 ~~~
 {: language-html}
 
@@ -73,6 +75,7 @@ The `Jinja2` module in the background is performing this replacement for us.
 We can also use conditional statements.
 
 ~~~
+{% raw %}
 <!doctype html>
 <html>
     <head>
@@ -86,6 +89,7 @@ We can also use conditional statements.
         <h1>Hello, {{ user.username }}!</h1>
     </body>
 </html>
+{% endraw %}
 ~~~
 {: language-html}
 
@@ -114,6 +118,7 @@ def index():
 {: .language-python}
 
 ~~~
+{% raw %}
 <!doctype html>
 <html>
     <head>
@@ -130,6 +135,7 @@ def index():
         {% endfor %}
     </body>
 </html>
+{% endraw %}
 ~~~
 {: language-html}
 
