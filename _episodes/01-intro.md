@@ -31,6 +31,61 @@ Included in Flask are the components:
 - MarkupSafe -  a string handling library
 - ItsDangerous - a data serialization library. Used to store the session of the Flask app in a cookie in a safe way.
 
+## Installation (Ubuntu or Linux like Environment)
+
+~~~
+sudo apt install python
+~~~
+{: .language-bash}
+
+This installs python.
+
+~~~
+sudo pip3 install virtualenv
+~~~
+{: .language-bash}
+
+This installs the environment manager we shall use.
+
+On Windows, using WSL, once you make the directory, go into it and then activate VS Code
+
+~~~
+code .
+~~~
+{: .language-bash}
+
+If using WSL and VS Code, you will want a few extensions installed.
+
+- WSL (allows VS Code to interact with the Linux Subsystem)
+- Python
+- PyLance
+
+## Setup
+
+Using the IDE create a file, microblog.py.
+
+With that file created we need to set up the environment. In the terminal of VS Code,
+
+~~~
+virtualenv --python=python3.8 .env
+
+source .env/bin/activate
+~~~
+{: .language-bash}
+
+You will note the command line has changed to denote the environment is active.
+
+To aid with linting and interpretation by the IDE, we need to select the environment being used.
+
+In the bottom right, next to Language (wehn we are viewing a python file), select the environment displayed, that will open the palette and from there select the interpreter (some are preloaded, for this yours is ./env/bin/python)
+
+Then on the command line we can isntall new libraries to the environment
+
+~~~
+pip install flask
+~~~
+{: .language-bash}
+
 ## Hello World
 ~~~
 from flask import Flask
