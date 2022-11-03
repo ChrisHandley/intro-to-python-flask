@@ -119,11 +119,11 @@ if __name__ == "__main__":
 {: .language-python}
 
 Using Postman we can send the json file payload to our endpoint http://127.0.0.1:5000/test, and the response is the
-`value` in content in the response.
+`value` in content in the response. In Postman define a POST wto the above URL, with the Body, as JSON format, as {"value": "test"} and send it.
 
 ~~~
 {
-    "body": "what",
+    "body": "test",
     "statusCode": 200
 }
 ~~~
@@ -131,7 +131,7 @@ Using Postman we can send the json file payload to our endpoint http://127.0.0.1
 
 The decorator to our `respond` function has the methods attribute of POST. This informs the endpoint it can receive a payload.
 
-Request takes the payload, a json, and only a json, and processes it to content where is is held as a dictionary.
+Request takes the payload, a json, and only a json, and processes it to content where is is held as a dictionary. The content of the json is accessed using `content` as the object and `value` as the key.
 
 > ## Better File Structure?
 >
@@ -150,7 +150,9 @@ Request takes the payload, a json, and only a json, and processes it to content 
 > > 
 > > The routes are split out from the main application
 > > as it makes it much easier to then have the routes for each endpoint
-> > in their own folder
+> > in their own folder.
+> >
+> > microblog.py now contains just the following.
 > >
 > > ~~~
 > > from app import app
@@ -161,6 +163,11 @@ Request takes the payload, a json, and only a json, and processes it to content 
 > > {: .language-python}
 > >
 > > A bit confusing, but what is happening is from the app folder the app instance is being imported.
+> >
+> > In the app folder we define `__init__.py` to contain the following. It creates an instance of the python app, and then imports the routes.
+> >
+> > Take care of the linters used. In VS Code some are aggressive and upon saving will move the routes import to the top of the file, creating
+> > an error.
 > >
 > > ~~~
 > > from flask import Flask
@@ -174,6 +181,8 @@ Request takes the payload, a json, and only a json, and processes it to content 
 > > The `__init__.py` file informs python the the files in the folder can be imported as modules
 > > and can be left empty. If it is not, then it is preparing other things, like our app, that can then
 > > be imported elsewhere.
+> >
+> > routes.py (and any file with routes in it as it can now be split up over multiple files and imported separately) has our routes.
 > >
 > > ~~~
 > > from app import app

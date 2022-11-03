@@ -18,13 +18,6 @@ Detailed installation instructions for various operating systems can be found
 on The Carpentries [template website for workshops][anaconda-instructions]
 and in [Anaconda documentation][anaconda-install].
 
-## Obtain lesson materials
-
-1. Download [ChemAI.zip][zipfile1].
-2. Create a folder called `ChemAI-workshop` on your Desktop.
-3. Move downloaded files to `ChemAI-workshop`.
-4. Unzip the files.
-
 
 ## Launch Python interface
 
