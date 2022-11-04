@@ -72,7 +72,18 @@ render_template function, and we pass to it the name of the template, and pass t
 
 Note the change in how the values are used on the front end. They are referenced using the curly double brackets.
 The `Jinja2` module in the background is performing this replacement for us.
-We can also use conditional statements.
+We can also use conditional statements. The above html is in the `index.html` file, and is placed in the templates directory.
+
+~~~
+microapp/
+├── app
+│   ├── __init__.py
+│   ├── routes.py
+|   └── templates
+|       └── index.html
+└── microblog.py
+~~~
+{: .terminal}
 
 ~~~
 {% raw %}
@@ -145,9 +156,15 @@ But how do we dynamically send data from the front end to the back end?
 
 ## Flask Forms to the Rescue
 
-Flask supports defining forms that are pushed to the front end.
+Flask supports defining forms that are pushed to the front end. In the `app` directory we can make a new file `forms.py`
+
+Also install `wtforms` using pip.
 
 ~~~
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
+
 class NameForm(FlaskForm):
     name = StringField('Which actor is your favorite?', validators=[DataRequired()])
     submit = SubmitField('Submit')
@@ -155,6 +172,10 @@ class NameForm(FlaskForm):
 {: .language-python}
 
 ~~~
+from flask import redirect, url_for
+from app.data import ACTORS
+from app.module import get_names, get_actor, get_id
+
 @app.route('/name', methods=['GET', 'POST'])
 def name():
     names = get_names(ACTORS)
@@ -176,7 +197,19 @@ def name():
 ~~~
 {: .language-python}
 
-This new route we takes the `ACTORS` object from a python file, which is just a dictionary of names, ids, and urls and stores that object in the variable names.
+This new route we takes the `ACTORS` object from a python file, `datas.py`, which is just a dictionary of names, ids, and urls and stores that object in the variable names. We place data.py in the app directory.
+
+~~~
+ACTORS = [
+{"id":26073614,"name":"Al Pacino","photo":"https://placebear.com/342/479"},
+{"id":77394988,"name":"Anthony Hopkins","photo":"https://placebear.com/305/469"},
+{"id":44646271,"name":"Audrey Hepburn","photo":"https://placebear.com/390/442"},
+{"id":85626345,"name":"Barbara Stanwyck","photo":"https://placebear.com/399/411"},
+{"id":57946467,"name":"Barbra Streisand","photo":"https://placebear.com/328/490"}
+]
+
+~~~
+{: .language-python}
 
 The NameForm class is associated to the variable form. Note the Field stypes we use. There are many prebuilt, like radio buttons etc. Associated with the Field is a string of text, the allows for a description of the Field to be rendered.
 
@@ -246,7 +279,7 @@ Best Movie Actors
 ~~~
 {: .language-html}
 
-The `name.html` above shows the use of forms again. In this case the form is rapidly built using `wtf.quick_form`.
+The `name.html` above shows the use of forms again, and is placed in the templates directory. In this case the form is rapidly built using `wtf.quick_form`.
 That's it, nothing else to do. On acceptance of a valid name, the `name` route redirects us to `actor` route, using the id
 to form the full url.
 
@@ -264,7 +297,7 @@ def actor(id):
 ~~~
 {: .language-python}
 
-In the actor route, using the id, we obtain the id, name, and url for the photo.
+In the actor route, using the id, we obtain the id, name, and url for the photo. We add thsi to our routes.py file.
 
 ~~~
 {% raw %}
@@ -321,5 +354,70 @@ ae cursus nibh sapien sit amet enim. Mauris imperdiet hendrerit risus, quis cong
 ~~~
 {: .language-html}
 
+This is out page, `actor.html` which we are redirected to when we search for an actor from our list.
+
+You will note in the `name` route, there are a few new functions that we call; `get_names`, `get_id`. The `actor` route contains the function `get_actor`.
+
+All of these functions we define in the `module.py` file in the app directory. Note how in the above code changes for routes.py how we import these functions.
+
+~~~
+from app.module import get_names, get_actor, get_id
+~~~
+{: .language-python}
+
+
+~~~
+def get_names(source):
+    names = []
+    for row in source:
+        # lowercase all the names for better searching
+        name = row["name"].lower()
+        names.append(name)
+    return sorted(names)
+~~~
+{: .language-python}
+
+`get_names` simply takes the content of `data.py` and extracts from it a list of names and places it into a list that we search.
+
+
+~~~
+def get_id(source, name):
+    for row in source:
+        # lower() makes the string all lowercase
+        if name.lower() == row["name"].lower():
+            id = row["id"]
+            # change number to string
+            id = str(id)
+            # return id if name is valid
+            return id
+    # return these if id is not valid - not a great solution, but simple
+    return "Unknown"
+~~~
+{: .language-python}
+
+Provided with the name of the actor, the id number is returned, and this is then used to form the url for that page.
+
+The name route then using the id redirects tot he actor route.
+
+~~~
+def get_actor(source, id):
+    for row in source:
+        if id == str( row["id"] ):
+            name = row["name"]
+            photo = row["photo"]
+            # change number to string
+            id = str(id)
+            # return these if id is valid
+            return id, name, photo
+    # return these if id is not valid - not a great solution, but simple
+    return "Unknown", "Unknown", ""
+~~~
+{: .language-python}
+
+In the actor route, the id that is passed is used to get the actor information which is passed to the `actor.html` template.
+
+
+
+Provided with the 
 
 {% include links.md %}
