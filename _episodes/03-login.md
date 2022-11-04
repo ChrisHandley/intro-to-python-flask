@@ -45,7 +45,7 @@ app to monitor logins, current user sessions etc.
 
 To use the LoginManager we are going to need a database, `db`, which we create using `SQLAlchemy`, which is a sql database type, and attach to the instance of the app, same as the login manager `login`. If the user is not logged in and tried to access pages that require authentification `login_view` informs the login manager which view to redirect to.
 
-If we are to use a database, it will need to be created in the event it doesn't exist first. So we modify the main `app.py`.
+If we are to use a database, it will need to be created in the event it doesn't exist first. So we modify the main `microblog.py`.
 
 ~~~
 from app import app, db
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
 Note we now also import the instance of the `db` database we defined above, and initiated if it is not present using `db.create_all()`.
 
-You will also note in our `__init__.py` we now more some settings and paramters into a config file. The config file is imported as the `Config` object, using `from config import Config`, and that configuration is loaded into the app using `app.config.from_object(Config)`.
+You will also note in our `__init__.py` we now have more settings and paramters that we shift to a config file. The config file is imported as the `Config` object, using `from config import Config`, and that configuration is loaded into the app using `app.config.from_object(Config)`.
 
 The `Config` object is defined in the main directory in `config.py` and has the following content.
 
@@ -74,12 +74,28 @@ class Config(object):
 ~~~
 {: .language-python}
 
+
+~~~
+microapp/
+├── app
+│   ├── __init__.py
+│   ├── routes.py
+|   ├── app.db
+|   └── templates
+|       ├── actor.html
+|       ├── name.html
+|       └── index.html
+├── config.py
+└── microblog.py
+~~~
+{: .terminal}
+
 We import the os library so we can interact with the file directory system and set the absolute path where the app is run to
 also be the location for the app databases.
 
 The `Config` class is an object, and within it has some values we set.
 The secret key is used to encrypt a session, and can then be stored in a cookie.
-The datbase URI is set using the basedir.
+The database URI is set using the basedir.
 And finally we set the database so we don't track modifications.
 
 ## Databases
